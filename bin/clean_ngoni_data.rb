@@ -24,34 +24,10 @@ EOF
   return source_data
 end
 
-def get_comparision_data(person)
-	comparision_data = ActiveRecord::Base.connection.select_all <<EOF
-		SELECT pi.patient_id,pi.identifier npid,identifier_type,
-                      (SELECT group_concat(pi2.identifier) legacy
-                      FROM openmrs_ngoni.patient_identifier pi2
-                      WHERE pi2.identifier_type = 2
-                      AND pi.patient_id = pi2.patient_id
-                      GROUP BY patient_id) legacy_ids,
-                      pi.date_created,given_name,middle_name,family_name,gender,birthdate,birthdate_estimated,death_date,pa.*
-                      FROM openmrs_ngoni.patient_identifier pi
-                      JOIN openmrs_ngoni.person p
-                      ON pi.patient_id = p.person_id
-                      JOIN openmrs_ngoni.person_name pn
-                      ON pi.patient_id = pn.person_id
-                      LEFT JOIN openmrs_ngoni.person_address pa
-                      ON pi.patient_id = pa.person_id
-                      where pi.identifier <> "#{person['npid']}"
-                      AND pi.voided = 0 and identifier_type = 3
-                      group by pi.patient_id,pi.identifier;
-EOF
-
-  return comparision_data
-end
-
 def scenario1(person)
-	data = get_comparision_data(person)
   potential_duplicates = []
-  data.each do |p|
+  $comparision_data.each do |p|
+  	 	next if person['patient_id'] == p['patient_id']
   	if DamerauLevenshtein.distance("#{person['given_name']}","#{p['given_name']}") <= 2 &&
   	   DamerauLevenshtein.distance("#{person['family_name']}","#{p['family_name']}") <= 2 &&
   	   person['gender'] == p['gender'] && 
@@ -67,9 +43,9 @@ def scenario1(person)
 end
 
 def scenario2(person)
-data = get_comparision_data(person)
   potential_duplicates = []
-  data.each do |p|
+  $comparision_data.each do |p|
+  	next if person['patient_id'] == p['patient_id']
   	if (DamerauLevenshtein.distance("#{person['given_name']}","#{p['given_name']}") <= 2) &&    (DamerauLevenshtein.distance("#{person['family_name']}","#{p['family_name']}") <= 2) && (person['gender'] == p['gender']) && 
   		(person['birthdate'] == p['birthdate'])
 
@@ -80,9 +56,9 @@ data = get_comparision_data(person)
 end
 
 def scenario3(person)
-	data = get_comparision_data(person)
-  potential_duplicates = []
-  data.each do |p|
+	potential_duplicates = []
+  $comparision_data.each do |p|
+  	next if person['patient_id'] == p['patient_id']
   	if DamerauLevenshtein.distance("#{person['given_name']}","#{p['given_name']}") <= 2 \
   		 && DamerauLevenshtein.distance("#{person['family_name']}","#{p['family_name']}") <= 2 \
   		 && person['gender'] == p['gender'] \
@@ -98,9 +74,9 @@ def scenario3(person)
 end
 
 def scenario4(person)
-	data = get_comparision_data(person)
-  potential_duplicates = []
-  data.each do |p|
+	potential_duplicates = []
+  $comparision_data.each do |p|
+  	next if person['patient_id'] == p['patient_id']
   	if DamerauLevenshtein.distance("#{person['given_name']}","#{p['given_name']}") <= 2 \
   		 && DamerauLevenshtein.distance("#{person['family_name']}","#{p['family_name']}") <= 2 \
   		 && person['birthdate'] == p['birthdate'] \
@@ -115,9 +91,9 @@ def scenario4(person)
 end
 
 def scenario5(person)
-	data = get_comparision_data(person)
-  potential_duplicates = []
-  data.each do |p|
+	potential_duplicates = []
+  $comparision_data.each do |p|
+  	next if person['patient_id'] == p['patient_id']
   	if DamerauLevenshtein.distance("#{person['given_name']}","#{p['given_name']}") <= 2 \
   		 && DamerauLevenshtein.distance("#{person['family_name']}","#{p['family_name']}") <= 2 \
   		 && person['gender'] == p['gender'] \
@@ -132,9 +108,9 @@ def scenario5(person)
 end
 
 def scenario6(person)
-	data = get_comparision_data(person)
-  potential_duplicates = []
-  data.each do |p|
+	potential_duplicates = []
+  $comparision_data.each do |p|
+  	next if person['patient_id'] == p['patient_id']
   	if DamerauLevenshtein.distance("#{person['given_name']}","#{p['given_name']}") <= 2 \
   		 && DamerauLevenshtein.distance("#{person['family_name']}","#{p['family_name']}") <= 2 \
   		 && person['birthdate'] == p['birthdate'] \
@@ -148,9 +124,9 @@ def scenario6(person)
 end
 
 def scenario7(person)
-	data = get_comparision_data(person)
-  potential_duplicates = []
-  data.each do |p|
+	potential_duplicates = []
+  $comparision_data.each do |p|
+  	next if person['patient_id'] == p['patient_id']
   	if DamerauLevenshtein.distance("#{person['given_name']}","#{p['given_name']}") <= 2 \
   		 && DamerauLevenshtein.distance("#{person['family_name']}","#{p['family_name']}") <= 2
        
@@ -178,6 +154,7 @@ end
 def check_against_scenario
 	puts "Getting data from source"
 	people = get_source_data
+	$comparision_data = get_source_data
 
 	people.each do |person|
 		puts "Checking #{person['npid']}"
