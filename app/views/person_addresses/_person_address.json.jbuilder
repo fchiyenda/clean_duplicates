@@ -1,0 +1,2 @@
+json.extract! person_address, :id, :person_address_id, :person_id, :preferred, :address1, :address2, :city_village, :state_province, :postal_code, :country, :latitude, :longitude, :creator, :date_created, :voided, :voided_by, :date_voided, :voided_by, :date_voided, :voided_reason, :county_district, :neighborhood_cell, :region, :subregion, :township_division, :uuid, :created_at, :updated_at
+json.url person_address_url(person_address, format: :json)

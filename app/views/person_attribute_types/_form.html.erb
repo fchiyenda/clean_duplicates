@@ -1,0 +1,102 @@
+<%= form_for(person_attribute_type) do |f| %>
+  <% if person_attribute_type.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(person_attribute_type.errors.count, "error") %> prohibited this person_attribute_type from being saved:</h2>
+
+      <ul>
+      <% person_attribute_type.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :person_attribute_type_id %>
+    <%= f.number_field :person_attribute_type_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_area :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= f.label :format %>
+    <%= f.text_area :format %>
+  </div>
+
+  <div class="field">
+    <%= f.label :foreign_key %>
+    <%= f.number_field :foreign_key %>
+  </div>
+
+  <div class="field">
+    <%= f.label :searchable %>
+    <%= f.number_field :searchable %>
+  </div>
+
+  <div class="field">
+    <%= f.label :creator %>
+    <%= f.number_field :creator %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date_created %>
+    <%= f.datetime_select :date_created %>
+  </div>
+
+  <div class="field">
+    <%= f.label :changed_by %>
+    <%= f.number_field :changed_by %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date_changed %>
+    <%= f.datetime_select :date_changed %>
+  </div>
+
+  <div class="field">
+    <%= f.label :retired %>
+    <%= f.number_field :retired %>
+  </div>
+
+  <div class="field">
+    <%= f.label :retired_by %>
+    <%= f.number_field :retired_by %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date_retired %>
+    <%= f.datetime_select :date_retired %>
+  </div>
+
+  <div class="field">
+    <%= f.label :retire_reason %>
+    <%= f.text_area :retire_reason %>
+  </div>
+
+  <div class="field">
+    <%= f.label :edit_privilege %>
+    <%= f.text_field :edit_privilege %>
+  </div>
+
+  <div class="field">
+    <%= f.label :uuid %>
+    <%= f.text_area :uuid %>
+  </div>
+
+  <div class="field">
+    <%= f.label :sort_weight %>
+    <%= f.text_field :sort_weight %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

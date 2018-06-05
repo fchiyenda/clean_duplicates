@@ -1,0 +1,75 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Person Addresses</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Person address</th>
+      <th>Person</th>
+      <th>Preferred</th>
+      <th>Address1</th>
+      <th>Address2</th>
+      <th>City village</th>
+      <th>State province</th>
+      <th>Postal code</th>
+      <th>Country</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Creator</th>
+      <th>Date created</th>
+      <th>Voided</th>
+      <th>Voided by</th>
+      <th>Date voided</th>
+      <th>Voided by</th>
+      <th>Date voided</th>
+      <th>Voided reason</th>
+      <th>County district</th>
+      <th>Neighborhood cell</th>
+      <th>Region</th>
+      <th>Subregion</th>
+      <th>Township division</th>
+      <th>Uuid</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @person_addresses.each do |person_address| %>
+      <tr>
+        <td><%= person_address.person_address_id %></td>
+        <td><%= person_address.person_id %></td>
+        <td><%= person_address.preferred %></td>
+        <td><%= person_address.address1 %></td>
+        <td><%= person_address.address2 %></td>
+        <td><%= person_address.city_village %></td>
+        <td><%= person_address.state_province %></td>
+        <td><%= person_address.postal_code %></td>
+        <td><%= person_address.country %></td>
+        <td><%= person_address.latitude %></td>
+        <td><%= person_address.longitude %></td>
+        <td><%= person_address.creator %></td>
+        <td><%= person_address.date_created %></td>
+        <td><%= person_address.voided %></td>
+        <td><%= person_address.voided_by %></td>
+        <td><%= person_address.date_voided %></td>
+        <td><%= person_address.voided_by %></td>
+        <td><%= person_address.date_voided %></td>
+        <td><%= person_address.voided_reason %></td>
+        <td><%= person_address.county_district %></td>
+        <td><%= person_address.neighborhood_cell %></td>
+        <td><%= person_address.region %></td>
+        <td><%= person_address.subregion %></td>
+        <td><%= person_address.township_division %></td>
+        <td><%= person_address.uuid %></td>
+        <td><%= link_to 'Show', person_address %></td>
+        <td><%= link_to 'Edit', edit_person_address_path(person_address) %></td>
+        <td><%= link_to 'Destroy', person_address, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Person Address', new_person_address_path %>

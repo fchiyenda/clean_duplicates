@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  patient_identifier_type_id: 1
+  name: MyText
+  description: MyText
+  format: MyText
+  check_digit: 1
+  creator: 1
+  date_created: 2018-06-04 16:00:50
+  required: 1
+  format_description: MyText
+  validator: MyText
+  retired: 1
+  retired_by: 1
+  date_retired: 2018-06-04 16:00:50
+  retire_reason: MyText
+  uuid: MyText
+
+two:
+  patient_identifier_type_id: 1
+  name: MyText
+  description: MyText
+  format: MyText
+  check_digit: 1
+  creator: 1
+  date_created: 2018-06-04 16:00:50
+  required: 1
+  format_description: MyText
+  validator: MyText
+  retired: 1
+  retired_by: 1
+  date_retired: 2018-06-04 16:00:50
+  retire_reason: MyText
+  uuid: MyText

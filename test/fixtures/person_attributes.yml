@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  person_attribute_id: 1
+  person_id: 1
+  value: MyText
+  person_attribute_type_id: 1
+  creator: 1
+  date_created: 2018-06-04 16:11:16
+  changed_by: 1
+  date_changed: 2018-06-04 16:11:16
+  voided: 1
+  voided_by: 1
+  date_voided: 2018-06-04 16:11:16
+  voided_reason: MyText
+  uuid: MyText
+
+two:
+  person_attribute_id: 1
+  person_id: 1
+  value: MyText
+  person_attribute_type_id: 1
+  creator: 1
+  date_created: 2018-06-04 16:11:16
+  changed_by: 1
+  date_changed: 2018-06-04 16:11:16
+  voided: 1
+  voided_by: 1
+  date_voided: 2018-06-04 16:11:16
+  voided_reason: MyText
+  uuid: MyText

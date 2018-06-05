@@ -1,0 +1,37 @@
+<%= form_for(global_property) do |f| %>
+  <% if global_property.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(global_property.errors.count, "error") %> prohibited this global_property from being saved:</h2>
+
+      <ul>
+      <% global_property.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :property %>
+    <%= f.text_field :property %>
+  </div>
+
+  <div class="field">
+    <%= f.label :property_value %>
+    <%= f.text_area :property_value %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= f.label :uuid %>
+    <%= f.text_area :uuid %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

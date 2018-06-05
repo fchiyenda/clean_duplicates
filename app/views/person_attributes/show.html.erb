@@ -1,0 +1,69 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Person attribute:</strong>
+  <%= @person_attribute.person_attribute_id %>
+</p>
+
+<p>
+  <strong>Person:</strong>
+  <%= @person_attribute.person_id %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @person_attribute.value %>
+</p>
+
+<p>
+  <strong>Person attribute type:</strong>
+  <%= @person_attribute.person_attribute_type_id %>
+</p>
+
+<p>
+  <strong>Creator:</strong>
+  <%= @person_attribute.creator %>
+</p>
+
+<p>
+  <strong>Date created:</strong>
+  <%= @person_attribute.date_created %>
+</p>
+
+<p>
+  <strong>Changed by:</strong>
+  <%= @person_attribute.changed_by %>
+</p>
+
+<p>
+  <strong>Date changed:</strong>
+  <%= @person_attribute.date_changed %>
+</p>
+
+<p>
+  <strong>Voided:</strong>
+  <%= @person_attribute.voided %>
+</p>
+
+<p>
+  <strong>Voided by:</strong>
+  <%= @person_attribute.voided_by %>
+</p>
+
+<p>
+  <strong>Date voided:</strong>
+  <%= @person_attribute.date_voided %>
+</p>
+
+<p>
+  <strong>Voided reason:</strong>
+  <%= @person_attribute.voided_reason %>
+</p>
+
+<p>
+  <strong>Uuid:</strong>
+  <%= @person_attribute.uuid %>
+</p>
+
+<%= link_to 'Edit', edit_person_attribute_path(@person_attribute) %> |
+<%= link_to 'Back', person_attributes_path %>

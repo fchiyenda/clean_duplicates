@@ -1,0 +1,82 @@
+<%= form_for(person_attribute) do |f| %>
+  <% if person_attribute.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(person_attribute.errors.count, "error") %> prohibited this person_attribute from being saved:</h2>
+
+      <ul>
+      <% person_attribute.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :person_attribute_id %>
+    <%= f.number_field :person_attribute_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :person_id %>
+    <%= f.number_field :person_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :value %>
+    <%= f.text_area :value %>
+  </div>
+
+  <div class="field">
+    <%= f.label :person_attribute_type_id %>
+    <%= f.number_field :person_attribute_type_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :creator %>
+    <%= f.number_field :creator %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date_created %>
+    <%= f.datetime_select :date_created %>
+  </div>
+
+  <div class="field">
+    <%= f.label :changed_by %>
+    <%= f.number_field :changed_by %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date_changed %>
+    <%= f.datetime_select :date_changed %>
+  </div>
+
+  <div class="field">
+    <%= f.label :voided %>
+    <%= f.number_field :voided %>
+  </div>
+
+  <div class="field">
+    <%= f.label :voided_by %>
+    <%= f.number_field :voided_by %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date_voided %>
+    <%= f.datetime_select :date_voided %>
+  </div>
+
+  <div class="field">
+    <%= f.label :voided_reason %>
+    <%= f.text_area :voided_reason %>
+  </div>
+
+  <div class="field">
+    <%= f.label :uuid %>
+    <%= f.text_area :uuid %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

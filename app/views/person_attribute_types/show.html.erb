@@ -1,0 +1,89 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Person attribute type:</strong>
+  <%= @person_attribute_type.person_attribute_type_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @person_attribute_type.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @person_attribute_type.description %>
+</p>
+
+<p>
+  <strong>Format:</strong>
+  <%= @person_attribute_type.format %>
+</p>
+
+<p>
+  <strong>Foreign key:</strong>
+  <%= @person_attribute_type.foreign_key %>
+</p>
+
+<p>
+  <strong>Searchable:</strong>
+  <%= @person_attribute_type.searchable %>
+</p>
+
+<p>
+  <strong>Creator:</strong>
+  <%= @person_attribute_type.creator %>
+</p>
+
+<p>
+  <strong>Date created:</strong>
+  <%= @person_attribute_type.date_created %>
+</p>
+
+<p>
+  <strong>Changed by:</strong>
+  <%= @person_attribute_type.changed_by %>
+</p>
+
+<p>
+  <strong>Date changed:</strong>
+  <%= @person_attribute_type.date_changed %>
+</p>
+
+<p>
+  <strong>Retired:</strong>
+  <%= @person_attribute_type.retired %>
+</p>
+
+<p>
+  <strong>Retired by:</strong>
+  <%= @person_attribute_type.retired_by %>
+</p>
+
+<p>
+  <strong>Date retired:</strong>
+  <%= @person_attribute_type.date_retired %>
+</p>
+
+<p>
+  <strong>Retire reason:</strong>
+  <%= @person_attribute_type.retire_reason %>
+</p>
+
+<p>
+  <strong>Edit privilege:</strong>
+  <%= @person_attribute_type.edit_privilege %>
+</p>
+
+<p>
+  <strong>Uuid:</strong>
+  <%= @person_attribute_type.uuid %>
+</p>
+
+<p>
+  <strong>Sort weight:</strong>
+  <%= @person_attribute_type.sort_weight %>
+</p>
+
+<%= link_to 'Edit', edit_person_attribute_type_path(@person_attribute_type) %> |
+<%= link_to 'Back', person_attribute_types_path %>

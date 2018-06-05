@@ -1,0 +1,69 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Patient identifier:</strong>
+  <%= @patient_identifier.patient_identifier_id %>
+</p>
+
+<p>
+  <strong>Patient:</strong>
+  <%= @patient_identifier.patient_id %>
+</p>
+
+<p>
+  <strong>Identifier:</strong>
+  <%= @patient_identifier.identifier %>
+</p>
+
+<p>
+  <strong>Identifier type:</strong>
+  <%= @patient_identifier.identifier_type %>
+</p>
+
+<p>
+  <strong>Preferred:</strong>
+  <%= @patient_identifier.preferred %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @patient_identifier.location_id %>
+</p>
+
+<p>
+  <strong>Creator:</strong>
+  <%= @patient_identifier.creator %>
+</p>
+
+<p>
+  <strong>Date created:</strong>
+  <%= @patient_identifier.date_created %>
+</p>
+
+<p>
+  <strong>Voided:</strong>
+  <%= @patient_identifier.voided %>
+</p>
+
+<p>
+  <strong>Voided by:</strong>
+  <%= @patient_identifier.voided_by %>
+</p>
+
+<p>
+  <strong>Date voided:</strong>
+  <%= @patient_identifier.date_voided %>
+</p>
+
+<p>
+  <strong>Void reason:</strong>
+  <%= @patient_identifier.void_reason %>
+</p>
+
+<p>
+  <strong>Uuid:</strong>
+  <%= @patient_identifier.uuid %>
+</p>
+
+<%= link_to 'Edit', edit_patient_identifier_path(@patient_identifier) %> |
+<%= link_to 'Back', patient_identifiers_path %>

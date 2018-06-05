@@ -1,0 +1,79 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Person:</strong>
+  <%= @person.person_id %>
+</p>
+
+<p>
+  <strong>Gender:</strong>
+  <%= @person.gender %>
+</p>
+
+<p>
+  <strong>Birthdate:</strong>
+  <%= @person.birthdate %>
+</p>
+
+<p>
+  <strong>Birthdate estimated:</strong>
+  <%= @person.birthdate_estimated %>
+</p>
+
+<p>
+  <strong>Dead:</strong>
+  <%= @person.dead %>
+</p>
+
+<p>
+  <strong>Death date:</strong>
+  <%= @person.death_date %>
+</p>
+
+<p>
+  <strong>Cause of death:</strong>
+  <%= @person.cause_of_death %>
+</p>
+
+<p>
+  <strong>Creator:</strong>
+  <%= @person.creator %>
+</p>
+
+<p>
+  <strong>Date created:</strong>
+  <%= @person.date_created %>
+</p>
+
+<p>
+  <strong>Changed by:</strong>
+  <%= @person.changed_by %>
+</p>
+
+<p>
+  <strong>Date changed:</strong>
+  <%= @person.date_changed %>
+</p>
+
+<p>
+  <strong>Voided:</strong>
+  <%= @person.voided %>
+</p>
+
+<p>
+  <strong>Voided by:</strong>
+  <%= @person.voided_by %>
+</p>
+
+<p>
+  <strong>Date voided:</strong>
+  <%= @person.date_voided %>
+</p>
+
+<p>
+  <strong>Void reason:</strong>
+  <%= @person.void_reason %>
+</p>
+
+<%= link_to 'Edit', edit_person_path(@person) %> |
+<%= link_to 'Back', people_path %>

@@ -1,0 +1,51 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Person Attributes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Person attribute</th>
+      <th>Person</th>
+      <th>Value</th>
+      <th>Person attribute type</th>
+      <th>Creator</th>
+      <th>Date created</th>
+      <th>Changed by</th>
+      <th>Date changed</th>
+      <th>Voided</th>
+      <th>Voided by</th>
+      <th>Date voided</th>
+      <th>Voided reason</th>
+      <th>Uuid</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @person_attributes.each do |person_attribute| %>
+      <tr>
+        <td><%= person_attribute.person_attribute_id %></td>
+        <td><%= person_attribute.person_id %></td>
+        <td><%= person_attribute.value %></td>
+        <td><%= person_attribute.person_attribute_type_id %></td>
+        <td><%= person_attribute.creator %></td>
+        <td><%= person_attribute.date_created %></td>
+        <td><%= person_attribute.changed_by %></td>
+        <td><%= person_attribute.date_changed %></td>
+        <td><%= person_attribute.voided %></td>
+        <td><%= person_attribute.voided_by %></td>
+        <td><%= person_attribute.date_voided %></td>
+        <td><%= person_attribute.voided_reason %></td>
+        <td><%= person_attribute.uuid %></td>
+        <td><%= link_to 'Show', person_attribute %></td>
+        <td><%= link_to 'Edit', edit_person_attribute_path(person_attribute) %></td>
+        <td><%= link_to 'Destroy', person_attribute, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Person Attribute', new_person_attribute_path %>

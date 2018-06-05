@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Person Attribute Types</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Person attribute type</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Format</th>
+      <th>Foreign key</th>
+      <th>Searchable</th>
+      <th>Creator</th>
+      <th>Date created</th>
+      <th>Changed by</th>
+      <th>Date changed</th>
+      <th>Retired</th>
+      <th>Retired by</th>
+      <th>Date retired</th>
+      <th>Retire reason</th>
+      <th>Edit privilege</th>
+      <th>Uuid</th>
+      <th>Sort weight</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @person_attribute_types.each do |person_attribute_type| %>
+      <tr>
+        <td><%= person_attribute_type.person_attribute_type_id %></td>
+        <td><%= person_attribute_type.name %></td>
+        <td><%= person_attribute_type.description %></td>
+        <td><%= person_attribute_type.format %></td>
+        <td><%= person_attribute_type.foreign_key %></td>
+        <td><%= person_attribute_type.searchable %></td>
+        <td><%= person_attribute_type.creator %></td>
+        <td><%= person_attribute_type.date_created %></td>
+        <td><%= person_attribute_type.changed_by %></td>
+        <td><%= person_attribute_type.date_changed %></td>
+        <td><%= person_attribute_type.retired %></td>
+        <td><%= person_attribute_type.retired_by %></td>
+        <td><%= person_attribute_type.date_retired %></td>
+        <td><%= person_attribute_type.retire_reason %></td>
+        <td><%= person_attribute_type.edit_privilege %></td>
+        <td><%= person_attribute_type.uuid %></td>
+        <td><%= person_attribute_type.sort_weight %></td>
+        <td><%= link_to 'Show', person_attribute_type %></td>
+        <td><%= link_to 'Edit', edit_person_attribute_type_path(person_attribute_type) %></td>
+        <td><%= link_to 'Destroy', person_attribute_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Person Attribute Type', new_person_attribute_type_path %>

@@ -1,0 +1,82 @@
+<%= form_for(patient_identifier) do |f| %>
+  <% if patient_identifier.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(patient_identifier.errors.count, "error") %> prohibited this patient_identifier from being saved:</h2>
+
+      <ul>
+      <% patient_identifier.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :patient_identifier_id %>
+    <%= f.number_field :patient_identifier_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :patient_id %>
+    <%= f.number_field :patient_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :identifier %>
+    <%= f.text_area :identifier %>
+  </div>
+
+  <div class="field">
+    <%= f.label :identifier_type %>
+    <%= f.number_field :identifier_type %>
+  </div>
+
+  <div class="field">
+    <%= f.label :preferred %>
+    <%= f.number_field :preferred %>
+  </div>
+
+  <div class="field">
+    <%= f.label :location_id %>
+    <%= f.number_field :location_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :creator %>
+    <%= f.number_field :creator %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date_created %>
+    <%= f.datetime_select :date_created %>
+  </div>
+
+  <div class="field">
+    <%= f.label :voided %>
+    <%= f.number_field :voided %>
+  </div>
+
+  <div class="field">
+    <%= f.label :voided_by %>
+    <%= f.number_field :voided_by %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date_voided %>
+    <%= f.datetime_select :date_voided %>
+  </div>
+
+  <div class="field">
+    <%= f.label :void_reason %>
+    <%= f.text_area :void_reason %>
+  </div>
+
+  <div class="field">
+    <%= f.label :uuid %>
+    <%= f.text_area :uuid %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

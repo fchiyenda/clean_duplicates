@@ -1,0 +1,142 @@
+<%= form_for(person_address) do |f| %>
+  <% if person_address.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(person_address.errors.count, "error") %> prohibited this person_address from being saved:</h2>
+
+      <ul>
+      <% person_address.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :person_address_id %>
+    <%= f.number_field :person_address_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :person_id %>
+    <%= f.number_field :person_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :preferred %>
+    <%= f.number_field :preferred %>
+  </div>
+
+  <div class="field">
+    <%= f.label :address1 %>
+    <%= f.text_area :address1 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :address2 %>
+    <%= f.text_area :address2 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :city_village %>
+    <%= f.text_area :city_village %>
+  </div>
+
+  <div class="field">
+    <%= f.label :state_province %>
+    <%= f.text_area :state_province %>
+  </div>
+
+  <div class="field">
+    <%= f.label :postal_code %>
+    <%= f.text_area :postal_code %>
+  </div>
+
+  <div class="field">
+    <%= f.label :country %>
+    <%= f.text_area :country %>
+  </div>
+
+  <div class="field">
+    <%= f.label :latitude %>
+    <%= f.text_area :latitude %>
+  </div>
+
+  <div class="field">
+    <%= f.label :longitude %>
+    <%= f.text_area :longitude %>
+  </div>
+
+  <div class="field">
+    <%= f.label :creator %>
+    <%= f.number_field :creator %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date_created %>
+    <%= f.datetime_select :date_created %>
+  </div>
+
+  <div class="field">
+    <%= f.label :voided %>
+    <%= f.number_field :voided %>
+  </div>
+
+  <div class="field">
+    <%= f.label :voided_by %>
+    <%= f.number_field :voided_by %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date_voided %>
+    <%= f.datetime_select :date_voided %>
+  </div>
+
+  <div class="field">
+    <%= f.label :voided_by %>
+    <%= f.number_field :voided_by %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date_voided %>
+    <%= f.datetime_select :date_voided %>
+  </div>
+
+  <div class="field">
+    <%= f.label :voided_reason %>
+    <%= f.text_area :voided_reason %>
+  </div>
+
+  <div class="field">
+    <%= f.label :county_district %>
+    <%= f.text_area :county_district %>
+  </div>
+
+  <div class="field">
+    <%= f.label :neighborhood_cell %>
+    <%= f.text_area :neighborhood_cell %>
+  </div>
+
+  <div class="field">
+    <%= f.label :region %>
+    <%= f.text_area :region %>
+  </div>
+
+  <div class="field">
+    <%= f.label :subregion %>
+    <%= f.text_area :subregion %>
+  </div>
+
+  <div class="field">
+    <%= f.label :township_division %>
+    <%= f.text_area :township_division %>
+  </div>
+
+  <div class="field">
+    <%= f.label :uuid %>
+    <%= f.text_area :uuid %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,55 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  person_address_id: 1
+  person_id: 1
+  preferred: 1
+  address1: MyText
+  address2: MyText
+  city_village: MyText
+  state_province: MyText
+  postal_code: MyText
+  country: MyText
+  latitude: MyText
+  longitude: MyText
+  creator: 1
+  date_created: 2018-06-04 16:07:40
+  voided: 1
+  voided_by: 1
+  date_voided: 2018-06-04 16:07:40
+  voided_by: 1
+  date_voided: 2018-06-04 16:07:40
+  voided_reason: MyText
+  county_district: MyText
+  neighborhood_cell: MyText
+  region: MyText
+  subregion: MyText
+  township_division: MyText
+  uuid: MyText
+
+two:
+  person_address_id: 1
+  person_id: 1
+  preferred: 1
+  address1: MyText
+  address2: MyText
+  city_village: MyText
+  state_province: MyText
+  postal_code: MyText
+  country: MyText
+  latitude: MyText
+  longitude: MyText
+  creator: 1
+  date_created: 2018-06-04 16:07:40
+  voided: 1
+  voided_by: 1
+  date_voided: 2018-06-04 16:07:40
+  voided_by: 1
+  date_voided: 2018-06-04 16:07:40
+  voided_reason: MyText
+  county_district: MyText
+  neighborhood_cell: MyText
+  region: MyText
+  subregion: MyText
+  township_division: MyText
+  uuid: MyText

@@ -1,0 +1,79 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Patient identifier type:</strong>
+  <%= @patient_identifier_type.patient_identifier_type_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @patient_identifier_type.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @patient_identifier_type.description %>
+</p>
+
+<p>
+  <strong>Format:</strong>
+  <%= @patient_identifier_type.format %>
+</p>
+
+<p>
+  <strong>Check digit:</strong>
+  <%= @patient_identifier_type.check_digit %>
+</p>
+
+<p>
+  <strong>Creator:</strong>
+  <%= @patient_identifier_type.creator %>
+</p>
+
+<p>
+  <strong>Date created:</strong>
+  <%= @patient_identifier_type.date_created %>
+</p>
+
+<p>
+  <strong>Required:</strong>
+  <%= @patient_identifier_type.required %>
+</p>
+
+<p>
+  <strong>Format description:</strong>
+  <%= @patient_identifier_type.format_description %>
+</p>
+
+<p>
+  <strong>Validator:</strong>
+  <%= @patient_identifier_type.validator %>
+</p>
+
+<p>
+  <strong>Retired:</strong>
+  <%= @patient_identifier_type.retired %>
+</p>
+
+<p>
+  <strong>Retired by:</strong>
+  <%= @patient_identifier_type.retired_by %>
+</p>
+
+<p>
+  <strong>Date retired:</strong>
+  <%= @patient_identifier_type.date_retired %>
+</p>
+
+<p>
+  <strong>Retire reason:</strong>
+  <%= @patient_identifier_type.retire_reason %>
+</p>
+
+<p>
+  <strong>Uuid:</strong>
+  <%= @patient_identifier_type.uuid %>
+</p>
+
+<%= link_to 'Edit', edit_patient_identifier_type_path(@patient_identifier_type) %> |
+<%= link_to 'Back', patient_identifier_types_path %>

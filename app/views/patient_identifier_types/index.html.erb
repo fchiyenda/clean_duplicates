@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Patient Identifier Types</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Patient identifier type</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Format</th>
+      <th>Check digit</th>
+      <th>Creator</th>
+      <th>Date created</th>
+      <th>Required</th>
+      <th>Format description</th>
+      <th>Validator</th>
+      <th>Retired</th>
+      <th>Retired by</th>
+      <th>Date retired</th>
+      <th>Retire reason</th>
+      <th>Uuid</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @patient_identifier_types.each do |patient_identifier_type| %>
+      <tr>
+        <td><%= patient_identifier_type.patient_identifier_type_id %></td>
+        <td><%= patient_identifier_type.name %></td>
+        <td><%= patient_identifier_type.description %></td>
+        <td><%= patient_identifier_type.format %></td>
+        <td><%= patient_identifier_type.check_digit %></td>
+        <td><%= patient_identifier_type.creator %></td>
+        <td><%= patient_identifier_type.date_created %></td>
+        <td><%= patient_identifier_type.required %></td>
+        <td><%= patient_identifier_type.format_description %></td>
+        <td><%= patient_identifier_type.validator %></td>
+        <td><%= patient_identifier_type.retired %></td>
+        <td><%= patient_identifier_type.retired_by %></td>
+        <td><%= patient_identifier_type.date_retired %></td>
+        <td><%= patient_identifier_type.retire_reason %></td>
+        <td><%= patient_identifier_type.uuid %></td>
+        <td><%= link_to 'Show', patient_identifier_type %></td>
+        <td><%= link_to 'Edit', edit_patient_identifier_type_path(patient_identifier_type) %></td>
+        <td><%= link_to 'Destroy', patient_identifier_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Patient Identifier Type', new_patient_identifier_type_path %>

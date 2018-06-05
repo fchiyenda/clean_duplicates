@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  property: 
+  property_value: MyText
+  description: MyText
+  uuid: MyText
+
+two:
+  property: 
+  property_value: MyText
+  description: MyText
+  uuid: MyText

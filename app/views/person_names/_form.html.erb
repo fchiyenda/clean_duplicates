@@ -1,0 +1,117 @@
+<%= form_for(person_name) do |f| %>
+  <% if person_name.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(person_name.errors.count, "error") %> prohibited this person_name from being saved:</h2>
+
+      <ul>
+      <% person_name.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :person_name_id %>
+    <%= f.number_field :person_name_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :preferred %>
+    <%= f.number_field :preferred %>
+  </div>
+
+  <div class="field">
+    <%= f.label :person_id %>
+    <%= f.number_field :person_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :prefix %>
+    <%= f.text_area :prefix %>
+  </div>
+
+  <div class="field">
+    <%= f.label :given_name %>
+    <%= f.text_area :given_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :middle_name %>
+    <%= f.text_area :middle_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :family_name_prefix %>
+    <%= f.text_area :family_name_prefix %>
+  </div>
+
+  <div class="field">
+    <%= f.label :family_name %>
+    <%= f.text_area :family_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :family_name2 %>
+    <%= f.text_area :family_name2 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :family_name_suffix %>
+    <%= f.text_area :family_name_suffix %>
+  </div>
+
+  <div class="field">
+    <%= f.label :degree %>
+    <%= f.text_area :degree %>
+  </div>
+
+  <div class="field">
+    <%= f.label :creator %>
+    <%= f.number_field :creator %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date_created %>
+    <%= f.datetime_select :date_created %>
+  </div>
+
+  <div class="field">
+    <%= f.label :voided %>
+    <%= f.number_field :voided %>
+  </div>
+
+  <div class="field">
+    <%= f.label :voided_by %>
+    <%= f.number_field :voided_by %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date_voided %>
+    <%= f.datetime_select :date_voided %>
+  </div>
+
+  <div class="field">
+    <%= f.label :void_reason %>
+    <%= f.text_area :void_reason %>
+  </div>
+
+  <div class="field">
+    <%= f.label :changed_by %>
+    <%= f.number_field :changed_by %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date_changed %>
+    <%= f.datetime_select :date_changed %>
+  </div>
+
+  <div class="field">
+    <%= f.label :uuid %>
+    <%= f.text_area :uuid %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

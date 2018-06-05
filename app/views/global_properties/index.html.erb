@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Global Properties</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Property value</th>
+      <th>Description</th>
+      <th>Uuid</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @global_properties.each do |global_property| %>
+      <tr>
+        <td><%= global_property.property %></td>
+        <td><%= global_property.property_value %></td>
+        <td><%= global_property.description %></td>
+        <td><%= global_property.uuid %></td>
+        <td><%= link_to 'Show', global_property %></td>
+        <td><%= link_to 'Edit', edit_global_property_path(global_property) %></td>
+        <td><%= link_to 'Destroy', global_property, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Global Property', new_global_property_path %>

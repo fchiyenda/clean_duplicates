@@ -1,0 +1,65 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Person Names</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Person name</th>
+      <th>Preferred</th>
+      <th>Person</th>
+      <th>Prefix</th>
+      <th>Given name</th>
+      <th>Middle name</th>
+      <th>Family name prefix</th>
+      <th>Family name</th>
+      <th>Family name2</th>
+      <th>Family name suffix</th>
+      <th>Degree</th>
+      <th>Creator</th>
+      <th>Date created</th>
+      <th>Voided</th>
+      <th>Voided by</th>
+      <th>Date voided</th>
+      <th>Void reason</th>
+      <th>Changed by</th>
+      <th>Date changed</th>
+      <th>Uuid</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @person_names.each do |person_name| %>
+      <tr>
+        <td><%= person_name.person_name_id %></td>
+        <td><%= person_name.preferred %></td>
+        <td><%= person_name.person_id %></td>
+        <td><%= person_name.prefix %></td>
+        <td><%= person_name.given_name %></td>
+        <td><%= person_name.middle_name %></td>
+        <td><%= person_name.family_name_prefix %></td>
+        <td><%= person_name.family_name %></td>
+        <td><%= person_name.family_name2 %></td>
+        <td><%= person_name.family_name_suffix %></td>
+        <td><%= person_name.degree %></td>
+        <td><%= person_name.creator %></td>
+        <td><%= person_name.date_created %></td>
+        <td><%= person_name.voided %></td>
+        <td><%= person_name.voided_by %></td>
+        <td><%= person_name.date_voided %></td>
+        <td><%= person_name.void_reason %></td>
+        <td><%= person_name.changed_by %></td>
+        <td><%= person_name.date_changed %></td>
+        <td><%= person_name.uuid %></td>
+        <td><%= link_to 'Show', person_name %></td>
+        <td><%= link_to 'Edit', edit_person_name_path(person_name) %></td>
+        <td><%= link_to 'Destroy', person_name, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Person Name', new_person_name_path %>

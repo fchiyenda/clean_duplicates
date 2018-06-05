@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Property:</strong>
+  <%= @global_property.property %>
+</p>
+
+<p>
+  <strong>Property value:</strong>
+  <%= @global_property.property_value %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @global_property.description %>
+</p>
+
+<p>
+  <strong>Uuid:</strong>
+  <%= @global_property.uuid %>
+</p>
+
+<%= link_to 'Edit', edit_global_property_path(@global_property) %> |
+<%= link_to 'Back', global_properties_path %>
