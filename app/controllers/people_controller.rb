@@ -1,74 +1,192 @@
+require 'damerau-levenshtein'
+require 'date'
+
 class PeopleController < ApplicationController
   before_action :set_person, only: [:show, :edit, :update, :destroy]
 
-  # GET /people
-  # GET /people.json
-  def index
-    @people = Person.all
+    # GET /people
+    # GET /people.json
+    def index
+    end
+
+    def get_source_data
+    source_data = ActiveRecord::Base.connection.select_all <<EOF
+      SELECT pi.patient_id,pi.identifier npid,identifier_type,
+                        (SELECT group_concat(pi2.identifier) legacy
+                        FROM openmrs_ngoni.patient_identifier pi2
+                        WHERE pi2.identifier_type = 2
+                        AND pi.patient_id = pi2.patient_id
+                        GROUP BY patient_id) legacy_ids,
+                        pi.date_created,given_name,middle_name,family_name,gender,birthdate,birthdate_estimated,death_date,pa.*
+                        FROM openmrs_ngoni.patient_identifier pi
+                        JOIN openmrs_ngoni.person p
+                        ON pi.patient_id = p.person_id
+                        JOIN openmrs_ngoni.person_name pn
+                        ON pi.patient_id = pn.person_id
+                        LEFT JOIN openmrs_ngoni.person_address pa
+                        ON pi.patient_id = pa.person_id
+                        where pi.voided = 0 and identifier_type = 3
+                        group by pi.patient_id,pi.identifier;
+EOF
+
+    return source_data
   end
 
-  # GET /people/1
-  # GET /people/1.json
-  def show
-  end
-
-  # GET /people/new
-  def new
-    @person = Person.new
-  end
-
-  # GET /people/1/edit
-  def edit
-  end
-
-  # POST /people
-  # POST /people.json
-  def create
-    @person = Person.new(person_params)
-
-    respond_to do |format|
-      if @person.save
-        format.html { redirect_to @person, notice: 'Person was successfully created.' }
-        format.json { render :show, status: :created, location: @person }
-      else
-        format.html { render :new }
-        format.json { render json: @person.errors, status: :unprocessable_entity }
+  def scenario1(person)
+    potential_duplicates = []
+    $comparision_data.each do |p|
+        next if person['patient_id'] == p['patient_id']
+      if DamerauLevenshtein.distance("#{person['given_name']}","#{p['given_name']}") <= 2 &&
+         DamerauLevenshtein.distance("#{person['family_name']}","#{p['family_name']}") <= 2 &&
+         person['gender'] == p['gender'] && 
+         person['birthdate'] == p['birthdate'] && 
+         person['birthdate_estimated'] == p['birthdate_estimated'] && 
+         DamerauLevenshtein.distance("#{person['home_village']}","#{p['home_village']}") <= 2
+         
+         potential_duplicates << p
       end
     end
+
+    return potential_duplicates
   end
 
-  # PATCH/PUT /people/1
-  # PATCH/PUT /people/1.json
-  def update
-    respond_to do |format|
-      if @person.update(person_params)
-        format.html { redirect_to @person, notice: 'Person was successfully updated.' }
-        format.json { render :show, status: :ok, location: @person }
-      else
-        format.html { render :edit }
-        format.json { render json: @person.errors, status: :unprocessable_entity }
+  def scenario2(person)
+    potential_duplicates = []
+    $comparision_data.each do |p|
+      next if person['patient_id'] == p['patient_id']
+      if (DamerauLevenshtein.distance("#{person['given_name']}","#{p['given_name']}") <= 2) &&    (DamerauLevenshtein.distance("#{person['family_name']}","#{p['family_name']}") <= 2) && (person['gender'] == p['gender']) && 
+        (person['birthdate'] == p['birthdate'])
+
+        potential_duplicates << p
       end
     end
+    return potential_duplicates
   end
 
-  # DELETE /people/1
-  # DELETE /people/1.json
-  def destroy
-    @person.destroy
-    respond_to do |format|
-      format.html { redirect_to people_url, notice: 'Person was successfully destroyed.' }
-      format.json { head :no_content }
+  def scenario3(person)
+    potential_duplicates = []
+    $comparision_data.each do |p|
+      next if person['patient_id'] == p['patient_id']
+      if DamerauLevenshtein.distance("#{person['given_name']}","#{p['given_name']}") <= 2 \
+         && DamerauLevenshtein.distance("#{person['family_name']}","#{p['family_name']}") <= 2 \
+         && person['gender'] == p['gender'] \
+         && (person['birthdate'].year - p['birthdate'].year).abs <= 2 \
+         && person['birthdate_estimated'] == p['birthdate_estimated'] \
+         && DamerauLevenshtein.distance("#{person['home_village']}","#{p['home_village']}") <= 2
+         
+         potential_duplicates << p
+      end
     end
+
+    return potential_duplicates
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_person
-      @person = Person.find(params[:id])
+  def scenario4(person)
+    potential_duplicates = []
+    $comparision_data.each do |p|
+      next if person['patient_id'] == p['patient_id']
+      if DamerauLevenshtein.distance("#{person['given_name']}","#{p['given_name']}") <= 2 \
+         && DamerauLevenshtein.distance("#{person['family_name']}","#{p['family_name']}") <= 2 \
+         && person['birthdate'] == p['birthdate'] \
+         && person['birthdate_estimated'] == p['birthdate_estimated'] \
+         && DamerauLevenshtein.distance("#{person['home_village']}","#{p['home_village']}") <= 2
+         
+         potential_duplicates << p
+      end
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def person_params
-      params.require(:person).permit(:person_id, :gender, :birthdate, :birthdate_estimated, :dead, :death_date, :cause_of_death, :creator, :date_created, :changed_by, :date_changed, :voided, :voided_by, :date_voided, :void_reason)
+    return potential_duplicates
+  end
+
+  def scenario5(person)
+    potential_duplicates = []
+    $comparision_data.each do |p|
+      next if person['patient_id'] == p['patient_id']
+      if DamerauLevenshtein.distance("#{person['given_name']}","#{p['given_name']}") <= 2 \
+         && DamerauLevenshtein.distance("#{person['family_name']}","#{p['family_name']}") <= 2 \
+         && person['gender'] == p['gender'] \
+         && (person['birthdate'].year - p['birthdate'].year).abs <= 2 \
+         && person['birthdate_estimated'] == p['birthdate_estimated']
+
+         potential_duplicates << p
+      end
     end
+
+    return potential_duplicates
+  end
+
+  def scenario6(person)
+    potential_duplicates = []
+    $comparision_data.each do |p|
+      next if person['patient_id'] == p['patient_id']
+      if DamerauLevenshtein.distance("#{person['given_name']}","#{p['given_name']}") <= 2 \
+         && DamerauLevenshtein.distance("#{person['family_name']}","#{p['family_name']}") <= 2 \
+         && person['birthdate'] == p['birthdate'] \
+         && person['birthdate_estimated'] == p['birthdate_estimated']
+         
+         potential_duplicates << p
+      end
+    end
+
+    return potential_duplicates
+  end
+
+  def scenario7(person)
+    potential_duplicates = []
+    $comparision_data.each do |p|
+      next if person['patient_id'] == p['patient_id']
+      if DamerauLevenshtein.distance("#{person['given_name']}","#{p['given_name']}") <= 2 \
+         && DamerauLevenshtein.distance("#{person['family_name']}","#{p['family_name']}") <= 2
+         
+         potential_duplicates << p
+      end
+    end
+
+    return potential_duplicates
+  end
+
+  def display_conflicts(people_data,person)
+    people_data << person
+    puts 'I am here'
+    @people = people_data
+  end
+
+  def check_against_scenario
+    puts "Getting data from source"
+    people = get_source_data
+    $comparision_data = get_source_data
+
+    people.each do |person|
+      puts "Checking #{person['npid']}"
+      puts "Checking Scenario1"
+      conflicts = scenario1(person)
+      display_conflicts(conflicts,person) if conflicts.count > 0  
+      puts "Checking Scenario2"
+      conflicts = scenario2(person) 
+      display_conflicts(conflicts,person) if conflicts.count > 0
+      puts "Checking Scenario3"
+      conflicts = scenario3(person)
+      display_conflicts(conflicts,person) if conflicts.count > 0
+      puts "Checking Scenario4"
+      conflicts = scenario4(person)
+      display_conflicts(conflicts,person) if conflicts.count > 0  
+      puts "Checking Scenario5"
+      conflicts = scenario5(person)
+      display_conflicts(conflicts,person) if conflicts.count > 0  
+      puts "Checking Scenario6"
+      conflicts = scenario6(person)
+      display_conflicts(conflicts,person) if conflicts.count > 0    
+      puts "Checking Scenario7"
+      conflicts = scenario7(person)
+      if conflicts.count > 0
+        display_conflicts(conflicts,person)
+        sleep(10_000)
+      end
+
+    end  
+  end
+
+  def start
+    check_against_scenario
+  end
 end

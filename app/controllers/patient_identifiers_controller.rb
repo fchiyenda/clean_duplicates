@@ -7,8 +7,7 @@ class PatientIdentifiersController < ApplicationController
     @patient_identifiers = PatientIdentifier.all
   end
 
-  # GET /patient_identifiers/1
-  # GET /patient_identifiers/1.json
+  # GET /patient_identifiers/1  # GET /patient_identifiers/1.json
   def show
   end
 
