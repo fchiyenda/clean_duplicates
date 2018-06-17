@@ -1,7 +1,11 @@
 require 'damerau-levenshtein'
 require 'date'
+require 'terminal-table'
+
 @comparision_data = {}
+@people = {}
 @conflict_ids = []
+@progress = 0
 
 def get_source_data
 	source_data = ActiveRecord::Base.connection.select_all <<EOF
@@ -178,44 +182,51 @@ def scenario7(person)
   return potential_duplicates
 end
 
-def display_conflicts(people_data,person,scenario)
-	people_data.each do |p|
-          puts 'person_id'.rjust(10) +
-               'npid'.rjust(10) +
-               'given_name'.rjust(15) +
-               'Family Name'.rjust(15) +
-               'Gender'.rjust(10) +
-               'DOB'.rjust(10) +
-               'DOB_estimated'.rjust(15) 
+def display_conflicts(conflicts,person,scenario)
+  heading = ['Person id','Identifier','Given Name', 'Middle Name', \
+              'Family name','Gender','DOB','DOB Est', \
+              'Home District','Home Ta','Home Village','Current District', \
+              'Current Ta','Current Village','Occupation','Date Created']
+    rows = []
+	conflicts.each do |conflict|
+    rows.clear
+    rows << [person['person_id'],person['identifier'],person['given_name'], \
+            person['middle_name'], person['family_name'],person['gender'], \
+            person['dob'],person['dob_estimated'],person['home_district'], \
+            person['home_ta'],person['home_village'], \
+            person['current_district'],person['current_ta'], \
+            person['current_village'],person['occupation'],person['created_at']]
 
+    rows << [conflict['person_id'],conflict['identifier'], \
+            conflict['given_name'],conflict['middle_name'], \
+            conflict['family_name'],conflict['gender'], \
+            conflict['dob'],conflict['dob_estimated'], \
+            conflict['home_district'],conflict['home_ta'], \
+            conflict['home_village'], \
+            conflict['current_district'],conflict['current_ta'], \
+            conflict['current_village'], \
+            conflict['occupation'],conflict['created_at']]    
 
-					puts "#{person['person_id'].to_s.rjust(10)}" +
-               "#{person['npid'].to_s.rjust(10)}" +
-					     "#{person['given_name'].to_s.rjust(10)}" +
-               "#{person['family_name'].to_s.rjust(10)}" +
-					     "#{person['gender'].to_s.rjust(10)}" +
-               "#{person['birthdate'].to_s.rjust(10)}" +
-					     "#{person['birthdate_estimated'].to_s.rjust(10)}" +
-               "#{person['neigborhood_cell'].to_s.rjust(10)}"
+    table = Terminal::Table.new :headings => heading, :rows => rows
 
-					puts "#{p['person_id'].to_s.rjust(10)}" +
-               "#{p['npid'].to_s.rjust(10)}" +
-               "#{p['given_name'].to_s.rjust(10)}" +
-               "#{p['family_name'].to_s.rjust(10)}" +
-               "#{p['gender'].to_s.rjust(10)}"
-               "#{p['birthdate'].to_s.rjust(10)}"
-               "#{p['birthdate_estimated'].to_s.rjust(10)}"
-               "#{p['neigborhood_cell'].to_s.rjust(10)}"
-  end
-  puts "Duplicate record? (Y/N or y/n default n):"
-  response = gets.chomp
-  if response.downcase == 'y'
-    #Save the conflict record on conflict table
-      save_conflict(person,scenario.to_i,people_data.first['merge_id'])
-    #Remove the id from the comparision variable
-      delete_conflict(person['merge_id'])
+    puts table
+
+    puts "Duplicate record? (Y/N or y/n default n):"
+    # response = gets.chomp
+    # if response.downcase == 'y'
+    # Save the conflict record on conflict table
+      save_conflict(conflict,scenario.to_i,person['merge_id'])
+    # Remove the id from the comparision variable
+      delete_conflict(conflict['merge_id'])
       puts 'Refreshing data'
-      check_against_scenario
+      @people.delete_if{|r| r['merge_id'] == person['merge_id']}
+      @comparision_data.delete_if{|row| row['merge_id'] == person['merge_id']}
+      puts @people.count
+      puts @comparision_data.count
+
+
+      check_against_scenario(@people)
+    #end
   end
 end
 
@@ -224,43 +235,40 @@ def delete_conflict(merge_id)
     DELETE FROM ngoni_person WHERE merge_id = #{merge_id};
 EOF
 
- @comparision_data =  ActiveRecord::Base.connection.execute <<EOF
-    SELECT * FROM ngoni_person;
-EOF
 end
 
-def save_conflict(person,conflict_reason,conflict_record_id)
+def save_conflict(conflict_person,conflict_reason,conflict_person_merge_id_ref)
    ActiveRecord::Base.connection.execute <<EOF
     INSERT INTO ngoni_person_conflict values (
         NULL,
-        '#{person['person_id']}',
-        '#{person['identifier']}',
-        '#{person['source']}',
-        '#{person['merge_id']}',
-         #{conflict_record_id},
+        "#{conflict_person['person_id']}",
+        "#{conflict_person['identifier']}",
+        "#{conflict_person['source']}",
+        "#{conflict_person['merge_id']}",
+         #{conflict_person_merge_id_ref},
         #{conflict_reason},
-        '#{person['given_name']}',
-        '#{person['middle_name']}',
-        '#{person['family_name']}',
-        '#{person['gender']}',
-        '#{person['dob']}',
-        '#{person['DOB_estimated'].to_i}',
-        '#{person['closest_landmark']}',
-        '#{person['current_residence']}',
-        '#{person['current_village']}',
-        '#{person['current_ta']}',
-        '#{person['current_district']}',
-        '#{person['home_village']}',
-        '#{person['home_ta']}',
-        '#{person['home_district']}',
-        '#{person['country_of_residence']}',
-        '#{person['citizenship']}',
-        '#{person['occupation']}',
-        '#{person['home_phone_number']}',
-        '#{person['cell_phone_number']}',
-        '#{person['office_phone_number']}',
-        '#{person['created_at']}',
-        '#{person['assigned_site']}');
+        "#{conflict_person['given_name']}",
+        "#{conflict_person['middle_name']}",
+        "#{conflict_person['family_name']}",
+        "#{conflict_person['gender']}",
+        "#{conflict_person['dob']}",
+        "#{conflict_person['DOB_estimated'].to_i}",
+        "#{conflict_person['closest_landmark']}",
+        "#{conflict_person['current_residence']}",
+        "#{conflict_person['current_village']}",
+        "#{conflict_person['current_ta']}",
+        "#{conflict_person['current_district']}",
+        "#{conflict_person['home_village']}",
+        "#{conflict_person['home_ta']}",
+        "#{conflict_person['home_district']}",
+        "#{conflict_person['country_of_residence']}",
+        "#{conflict_person['citizenship']}",
+        "#{conflict_person['occupation']}",
+        "#{conflict_person['home_phone_number']}",
+        "#{conflict_person['cell_phone_number']}",
+        "#{conflict_person['office_phone_number']}",
+        "#{conflict_person['created_at']}",
+        "#{conflict_person['assigned_site']}");
 EOF
 
 end
@@ -405,21 +413,22 @@ end
 
 def get_data
   data = ActiveRecord::Base.connection.select_all <<EOF
-  SELECT * FROM ngoni_person limit 500;
+  SELECT * FROM ngoni_person order by merge_id;
 
 EOF
 
-return data
+return data.to_a
 end
 
-def check_against_scenario
-	puts "Getting data from source"
-	people = get_data
-	@comparision_data = people
+def check_against_scenario(people)
+	#Read where we left off
+  @progress = File.read('log/cleaning_progress.log') rescue 0
 
 
-	people.each do |person|
-		puts "Checking #{person['identifier']}"
+  @people.each do |person|
+    next if person['merge_id'].to_i <= @progress.to_i
+    puts "Checking #{person['identifier']} record number" \
+         "..#{person['merge_id']}"
     puts "Checking Scenario1"
     conflicts = scenario1(person)
 		display_conflicts(conflicts,person,1) if conflicts.count > 0	
@@ -437,17 +446,23 @@ def check_against_scenario
 		display_conflicts(conflicts,person,5) if conflicts.count > 0	
 		puts "Checking Scenario6"
 		conflicts = scenario6(person)
-		display_conflicts(conflicts,person,6) if conflicts.count > 0		
+		display_conflicts(conflicts,person,6) if conflicts.count > 0
+=begin		
 		puts "Checking Scenario7"
 		conflicts = scenario7(person)
-		display_conflicts(conflicts,person,7) if conflicts.count > 0	
-	end  
+		display_conflicts(conflicts,person,7) if conflicts.count > 0
+=end
+    `echo #{person['merge_id']} > log/cleaning_progress.log`
+  end 
 end
 
 def start
-  #create_table
-  #format_data
-	check_against_scenario
+  # create_table
+  # format_data
+  puts 'Getting data from source'
+  @people = get_data
+  @comparision_data = get_data
+  check_against_scenario(@people)
 end
 
 start
